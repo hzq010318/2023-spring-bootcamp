@@ -3,16 +3,18 @@ import datetime as dt
 
 RAW_DATA_NAME = "data/QQQ.csv"
 ANALYSIS_RESULT_DATA_NAME = "data/QQQ-result.csv"
+ANALYSIS_FIXED_RESULT_DATA_NAME = "data/QQQ-result-fixed-cost.csv"
+ANALYSIS_FIXED_SELL_RESULT_DATA_NAME = "data/QQQ-result-fixed-cost-sell.csv"
 
 """ DO NOT EDIT (BEGIN) """
 
 
-def read_data() -> pd.DataFrame:
-    return pd.read_csv(RAW_DATA_NAME)
+def read_data(file_name=RAW_DATA_NAME) -> pd.DataFrame:
+    return pd.read_csv(file_name)
 
 
 def write_data(data: pd.DataFrame, file_name: str = ANALYSIS_RESULT_DATA_NAME) -> None:
-    return data.to_csv(file_name, index=False)
+    return data.to_csv(file_name, index=False, float_format='%.4f')
 
 
 def is_monday(day: str) -> bool:
@@ -20,8 +22,8 @@ def is_monday(day: str) -> bool:
 
 
 # 从年数，回报倍数得到年化收益. e.g. 0.1 -> 10% 年化收益
-def annual_return(num_of_year: int, times: float) -> float:
-    return pow(times, 1 / num_of_year) - 1.0
+def annual_return(num_of_year: int, gain: float, inflation=0) -> float:
+    return pow(gain - inflation, 1 / num_of_year) - 1.0
 
 
 """ DO NOT EDIT (END) """
@@ -29,7 +31,7 @@ def annual_return(num_of_year: int, times: float) -> float:
 
 # -- TODO: Part 1 (START)
 def calculate_scheduled_investment(data: pd.DataFrame) -> ():
-    shares = 10  # 每次购买 10 share QQQ
+    shares = 10
     positions = [0.0]
     cost = [0.0]
     assets = [0.0]
@@ -65,7 +67,7 @@ def export_result() -> float:
 
 # -- TODO: Part 2 (END)
 
-# -- TODO: Part 3 - Bonus (START)
+# -- TODO: Part 3 (START)
 # -- Recommend to copy and write to a new .csv file, so we will not mix Part 3 with Part 1 or 2
 def calculate_scheduled_investment_fixed_cost(data: pd.DataFrame) -> ():
     pass
@@ -75,6 +77,10 @@ def get_annual_return_fixed_cost() -> float:
     pass
 
 
+# -- TODO: Part 3 (END)
+
+
+# -- TODO: Part 4 (START)
 def calculate_scheduled_investment_fixed_cost_with_sell(data: pd.DataFrame,
                                                         sell_point: float,
                                                         sell_percentage: float) -> ():
@@ -92,7 +98,29 @@ def get_annual_return_fixed_cost_with_sell() -> float:
     pass
 
 
-# -- TODO: Part 3 (END)
+# -- TODO: Part 4 (END)
+
+
+# -- TODO: Part 5 (Bonus)
+def print_all_annual_returns() -> (float, float, float):
+    # implement
+    print("Investment Return 1: ", round(export_result(), 4) * 100, "%")
+    print("Investment Return 2: ", round(get_annual_return_fixed_cost(), 4) * 100, "%")
+    print("Investment Return 3: ", round(get_annual_return_fixed_cost_with_sell(), 4) * 100, "%")
+
+
+def print_inflation_adjust_annual_returns() -> (float, float, float):
+    print_all_annual_returns()
+    # implement
+    return1 = 0
+    return2 = 0
+    return3 = 0
+    print("Adjusted Investment Return 1: ", round(return1, 4) * 100, "%")
+    print("Adjusted Investment Return 2: ", round(return2, 4) * 100, "%")
+    print("Adjusted Investment Return 3: ", round(return3, 4) * 100, "%")
+
+
+# -- TODO: Part 5 (END)
 
 
 if __name__ == '__main__':
