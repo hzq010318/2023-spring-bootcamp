@@ -103,7 +103,7 @@ def get_annual_return_fixed_cost_with_sell() -> float:
 
 # -- TODO: Part 5 (Bonus)
 def print_all_annual_returns() -> (float, float, float):
-    # implement
+    # implement - this can simply call the three investment calculation, where they will write three files.
     print("Investment Return 1: ", round(export_result(), 4) * 100, "%")
     print("Investment Return 2: ", round(get_annual_return_fixed_cost(), 4) * 100, "%")
     print("Investment Return 3: ", round(get_annual_return_fixed_cost_with_sell(), 4) * 100, "%")
@@ -111,7 +111,7 @@ def print_all_annual_returns() -> (float, float, float):
 
 def print_inflation_adjust_annual_returns() -> (float, float, float):
     print_all_annual_returns()
-    # implement
+    # implement - this can simply read from the three files generated.
     return1 = 0
     return2 = 0
     return3 = 0
