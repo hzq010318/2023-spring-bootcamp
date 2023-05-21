@@ -7,5 +7,5 @@
 #
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 
-httpd = HTTPServer(('localhost', 8002), SimpleHTTPRequestHandler)
+httpd = HTTPServer(('localhost', 8003), SimpleHTTPRequestHandler)
 httpd.serve_forever()
