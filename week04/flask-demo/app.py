@@ -19,24 +19,29 @@ def show_user_profile(name: str):
     return look_up_user_info(names[0])
 
 
-@app.route('/update', methods=['POST'])
+@app.route('/user', methods=['POST'])
 def login():
     name = request.json
     if 'last_name' in name:
-        look_up_user_info(name['first_name'], name['last_name'], method='POST')
+        return look_up_user_info(name['first_name'], name['last_name'], method='POST')
     return look_up_user_info(name['first_name'], method='POST')
 
 
 def look_up_user_info(first_name: str, last_name: str = None, method: str = 'GET') -> str:
+    # update or create
+    if method == 'POST':
+        if last_name is None:
+            return f"User Update failed, 'last_name' is None for ({first_name}, {last_name})"
+        first_to_last_names[first_name] = last_name
+        return f"User Updated for ({first_name}, {last_name})"
+
+    # read
     if first_name in first_to_last_names:
-        return "User last name is: " + first_to_last_names[first_name]
-    elif method == 'POST':
-        if last_name is not None:
-            first_to_last_names[first_name] = last_name
-            return "User Updated!"
-        else:
-            return "User Update failed, 'last_name' is None"
-    return "User first name does not exist"
+        found_last_name = first_to_last_names[first_name]
+        if last_name is None or found_last_name == last_name:
+            return f"User found for ({first_name}, {found_last_name})"
+    return f"User does not exist ({first_name}, {last_name})"
+
 
 if __name__ == "__main__":
     app.run()

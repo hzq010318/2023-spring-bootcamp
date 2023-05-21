@@ -62,7 +62,7 @@ def get_annual_return_fixed_cost() -> ():
 def write_data_for_symbol(symbol: str) -> None:
     start = pd.to_datetime('2015-01-01')
     end = pd.to_datetime('2022-01-01')
-    # google stock API
+    # data source: stooq.com
     df = data.DataReader(symbol, 'stooq', start, end)
     df[DATE] = df.index
     write_data(df.loc[::-1], RAW_DATA_NAME)
