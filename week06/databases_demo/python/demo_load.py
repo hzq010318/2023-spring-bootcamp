@@ -1,7 +1,7 @@
 import sqlite3
 
 connection = sqlite3.connect(":memory:")
-# connection = sqlite3.connect("test.db")
+# connection = sqlite3.connect("test03.db")
 
 cursor = connection.cursor()
 

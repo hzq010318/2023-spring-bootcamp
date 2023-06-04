@@ -21,9 +21,9 @@ def execute_write_query(connection, query):
     try:
         cursor.execute(query)
         connection.commit()
-        print("Query executed successfully")
+        print("Query executed successfully for write")
     except Error as e:
-        print(f"The error '{e}' occurred")
+        print(f"The error '{e}' occurred for write")
 
 
 def execute_read_query(connection, query):
@@ -32,7 +32,7 @@ def execute_read_query(connection, query):
         cursor.execute(query)
         return cursor.fetchall()
     except Error as e:
-        print(f"The error '{e}' occurred")
+        print(f"The error '{e}' occurred for read")
 
 
 conn = create_connection("test02.db")
@@ -80,6 +80,7 @@ WHERE
 """
 
 execute_write_query(conn, update_user_nationality)
+read_users(conn)
 
 # delete
 delete_user = "DELETE FROM users WHERE id = 5"
